@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>Bouncy Ball</title>
+<meta name="theme-color" content="#0a0e24">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<style>
+  /* One full-bleed canvas, deliberately single-theme: a deep night-blue room so the ball and sparks glow */
+  :root {
+    --room: #182050;
+    --room-deep: #0a0e24;
+    --hint: rgba(214, 222, 255, 0.6);
+    --hint-font: 500 16px/1.3 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color-scheme: dark;
+  }
+  html { box-sizing: border-box; height: 100%; background: var(--room-deep); overflow: hidden; overscroll-behavior: none; }
+  body {
+    height: 100%; margin: 0; overflow: hidden; background: var(--room-deep);
+    touch-action: none; user-select: none; -webkit-user-select: none;
+    -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent;
+  }
+  #stage {
+    display: block; width: 100%; height: 100%; touch-action: none;
+    background: radial-gradient(ellipse at 50% 38%, var(--room), var(--room-deep) 75%);
+  }
+  #hint {
+    position: fixed; left: 0; right: 0;
+    bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+    text-align: center; color: var(--hint); font: var(--hint-font);
+    pointer-events: none; transition: opacity 0.8s;
+  }
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+<div id="hint">Drag the ball, or swipe to hit it</div>
+
+<script src="ball-core.js"></script>
+<script>
+  BallToy.start(document.getElementById('stage'), { ...BallToy.DEFAULTS }, {
+    hint: document.getElementById('hint'),
+    fullscreen: true,
+  });
+</script>
+</body>
+</html>
